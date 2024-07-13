@@ -8,15 +8,13 @@ class HomeRepoImplementation implements HomeRepo {
 
   HomeRepoImplementation(this.apiService);
 
-   @override
-   Future<List<ProductsModel>> fetchProducts() async {
+  @override
+  Future<List<ProductsModel>> fetchProducts() async {
     var data = await apiService.get();
     List<ProductsModel> products = [];
-    for (var item in data['items']) {
+    for (var item in data['products']) {
       products.add(ProductsModel.fromJson(item));
     }
     return products;
-
-   }
-
+  }
 }
