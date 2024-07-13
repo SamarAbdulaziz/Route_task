@@ -1,14 +1,14 @@
 
-class Products {
+class ProductsModel {
   List<Product> products;
   int total;
 
-  Products({
+  ProductsModel({
     required this.products,
     required this.total,
   });
 
-  factory Products.fromJson(Map<String, dynamic> json) => Products(
+  factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
     products: List<Product>.from(
         json["products"].map((x) => Product.fromJson(x))),
     total: json["total"],
