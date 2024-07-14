@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:route_tech_summit_task/core/utils/constants.dart';
-
 import 'components/product_grid_view.dart';
-import 'components/product_item.dart';
 import 'components/search_bar_widget.dart';
 
 class HomeView extends StatelessWidget {
