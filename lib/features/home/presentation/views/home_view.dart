@@ -11,14 +11,8 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.only(top: 45, left: 20, right: 20),
-      child: BlocConsumer<ProductsCubit, ProductState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-          if (state is GetProductsSuccessState) {
-            return Column(
+            padding: const EdgeInsets.only(top: 45, left: 20, right: 20),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset('assets/images/route_logo.png', scale: 3.5),
@@ -26,21 +20,24 @@ class HomeView extends StatelessWidget {
                   height: 20,
                 ),
                 const SearchBarWidget(),
-                ProductGridView(products: state.products),
+                BlocConsumer<ProductsCubit, ProductState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    if (state is GetProductsSuccessState) {
+                      return ProductGridView(products: state.products);
+                    } else if (state is GetProductsErrorState) {
+                      return  Center(
+                          child: Text(
+                        state.message,
+                      ));
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
               ],
-            );
-          }
-          if (state is GetProductsErrorState) {
-            return Center(
-              child: Text(state.message),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    ));
+            )));
   }
 }

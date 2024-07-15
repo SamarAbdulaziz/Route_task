@@ -15,23 +15,26 @@ class HomeRepoImplementation implements HomeRepo {
   Future<Either<Failure, List<ProductsModel>>> fetchProducts() async {
     try {
       var data = await apiService.get();
-      List<ProductsModel> products = [];
+//      List<ProductsModel> products = [];
 
       if (data.containsKey('products') && data['products'] is List) {
         List<dynamic> productsData = data['products'];
-        products = productsData
+        List<ProductsModel> products = productsData
             .map((product) => ProductsModel.fromJson(product))
             .toList();
+        return Right(products);
+      } else {
+        return Left(ServerFailure('Products data is invalid'));
       }
+
       // for (var item in data['products']) {
       //   products.add(ProductsModel.fromJson(item));
       // }
-      return right(products);
     } on Exception catch (e) {
       if (e is DioError) {
-        return left(ServerFailure.fromDioError(e));
+        return Left(ServerFailure.fromDioError(e));
       }
-      return left(ServerFailure(e.toString()));
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

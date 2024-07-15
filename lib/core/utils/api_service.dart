@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class ApiService {
   final String _baseUrl =
-      'https://dummyjson.com/products/search?q=green'; //'https://www.googleapis.com/books/v1/';
+      'https://dummyjson.com/products'; //'https://www.googleapis.com/books/v1/';
   final Dio dio;
 
   ApiService(this.dio);
@@ -10,8 +10,8 @@ class ApiService {
   Future<Map<String, dynamic>> get() async{
     try {
       var response = await dio.get(
-        '$_baseUrl/search/',
-        queryParameters: {'q': 'green'},
+        '$_baseUrl/search?q= /',
+
         // queryParameters: {'search': value},
       );
       print(response.data.toString());
