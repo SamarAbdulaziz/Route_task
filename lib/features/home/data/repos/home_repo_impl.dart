@@ -12,15 +12,22 @@ class HomeRepoImplementation implements HomeRepo {
   HomeRepoImplementation(this.apiService);
 
   @override
-  Future <Either<Failure,List<ProductsModel>>> fetchProducts() async {
+  Future<Either<Failure, List<ProductsModel>>> fetchProducts() async {
     try {
       var data = await apiService.get();
       List<ProductsModel> products = [];
-      for (var item in data['products']) {
-        products.add(ProductsModel.fromJson(item));
+
+      if (data.containsKey('products') && data['products'] is List) {
+        List<dynamic> productsData = data['products'];
+        products = productsData
+            .map((product) => ProductsModel.fromJson(product))
+            .toList();
       }
+      // for (var item in data['products']) {
+      //   products.add(ProductsModel.fromJson(item));
+      // }
       return right(products);
-    } on Exception catch(e) {
+    } on Exception catch (e) {
       if (e is DioError) {
         return left(ServerFailure.fromDioError(e));
       }

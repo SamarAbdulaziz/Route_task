@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
-
+import 'package:route_tech_summit_task/features/home/data/models/products_model.dart';
 import '../../../../../core/utils/constants.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
-    super.key,
+    super.key, required this.product,
   });
-
+final ProductsModel product;
   @override
   Widget build(BuildContext context) {
     return Container(
