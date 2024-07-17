@@ -13,15 +13,3 @@ class ServicesLocator {
     sl.registerLazySingleton<HomeRepo>(() => HomeRepoImplementation(sl()));
   }
 }
-//
-// class ServicesLocator {
-//   void init() {
-//     sl.registerLazySingleton<HomeRepo>(
-//       () => HomeRepoImplementation(
-//         ApiService(
-//           Dio(),
-//         ),
-//       ),
-//     );
-//   }
-// }
