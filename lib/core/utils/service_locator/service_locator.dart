@@ -9,7 +9,7 @@ GetIt sl = GetIt.instance;
 class ServicesLocator {
   void init() {
     sl.registerLazySingleton<Dio>(() => Dio());
-    sl.registerLazySingleton<ApiService>(() => ApiService(sl()));
+    sl.registerLazySingleton<ApiServices>(() => ApiServices(sl()));
     sl.registerLazySingleton<HomeRepo>(() => HomeRepoImplementation(sl()));
   }
 }

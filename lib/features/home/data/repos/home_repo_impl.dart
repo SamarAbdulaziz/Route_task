@@ -7,14 +7,15 @@ import '../../../../core/errors/failure.dart';
 import 'home_repo.dart';
 
 class HomeRepoImplementation implements HomeRepo {
-  final ApiService apiService;
+  final ApiServices apiService;
 
   HomeRepoImplementation(this.apiService);
 
   @override
-  Future<Either<Failure, List<ProductsModel>>> fetchProducts() async {
+  Future<Either<Failure, List<ProductsModel>>> fetchProducts(
+      {String? value}) async {
     try {
-      var data = await apiService.get();
+      var data = await apiService.getSearch(value: value);
 //      List<ProductsModel> products = [];
 
       if (data.containsKey('products') && data['products'] is List) {
@@ -26,10 +27,6 @@ class HomeRepoImplementation implements HomeRepo {
       } else {
         return Left(ServerFailure('Products data is invalid'));
       }
-
-      // for (var item in data['products']) {
-      //   products.add(ProductsModel.fromJson(item));
-      // }
     } on Exception catch (e) {
       if (e is DioError) {
         return Left(ServerFailure.fromDioError(e));

@@ -1,13 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:route_tech_summit_task/features/home/data/models/products_model.dart';
 import '../../../../../core/utils/constants.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
-    super.key, required this.product,
+    super.key,
+    required this.product,
   });
-final ProductsModel product;
+
+  final ProductsModel product;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,10 +26,7 @@ final ProductsModel product;
             children: [
               SizedBox(
                 width: double.infinity,
-                child: Image.asset(
-                  'assets/images/route_logo.png',
-                  scale: 3.5,
-                ),
+                child: Image.network(product.image),
               ),
               CircleAvatar(
                 backgroundColor: Colors.white,
@@ -40,24 +39,27 @@ final ProductsModel product;
               ),
             ],
           ),
-          const Text(
-            'Nike air jordon \nNike Air Shoes flixable for woman',
+          Text(
+            product.description,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
-          const Row(
+          const SizedBox(height: 20.0),
+          Row(
             children: [
-              Text('EGP 1200'),
-              Spacer(),
+              Text('${product.price} EGP'),
+              const Spacer(),
               Text(
-                '2000 EGP',
-                style:
-                TextStyle(decoration: TextDecoration.lineThrough),
+                '${product.price} EGP',
+                style: const TextStyle(decoration: TextDecoration.lineThrough),
               ),
             ],
           ),
+          const Spacer(),
           Row(
             children: [
-              const Text(
-                'Review (4.6) ',
+              Text(
+                'Review (${product.rating.round()}) ',
               ),
               const Icon(Icons.star, color: Colors.amber),
               const Spacer(),
